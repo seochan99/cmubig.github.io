@@ -11,6 +11,9 @@ brew install yarn
 # start local dev server at `localhost:4321`
 yarn dev
 
+# formatter
+yarn prettier . --write
+
 # build static content
 yarn build
 ```
@@ -54,4 +57,5 @@ All commands are run from the root of the project, from a terminal:
 
 ```
 yarn create astro --template starlight/tailwind
+yarn add --dev prettier prettier-plugin-astro remark-parse
 ```
