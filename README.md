@@ -7,6 +7,7 @@
 ```bash
 brew install node@23
 brew install yarn
+git lfs install
 
 # start local dev server at `localhost:4321`
 yarn dev
@@ -58,4 +59,6 @@ All commands are run from the root of the project, from a terminal:
 ```
 yarn create astro --template starlight/tailwind
 yarn add --dev prettier prettier-plugin-astro remark-parse
+git lfs track "src/assets"
+git lfs track "*.jpg" "*.png" "*.gif" "*.mp4" "*.mov" "*.pdf"
 ```
