@@ -24,6 +24,10 @@ export default defineConfig({
           autogenerate: { directory: 'reference' },
         },
       ],
+      components: {
+        // Override the default components.
+        Header: './src/components/Header.astro',
+      },
       customCss: ['./src/tailwind.css'],
     }),
     tailwind({ applyBaseStyles: false }),
