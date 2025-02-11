@@ -6,7 +6,6 @@ import tailwind from '@astrojs/tailwind'
 // https://astro.build/config
 export default defineConfig({
   site: 'https://cmubig.github.io',
-  base: 'cmubig.github.io',
   integrations: [
     starlight({
       title: 'BIG',

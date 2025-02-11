@@ -10,6 +10,9 @@ brew install yarn
 brew install git-lfs
 git lfs install
 
+# install yarn
+yarn
+
 # start local dev server at `localhost:4321`
 yarn dev
 
