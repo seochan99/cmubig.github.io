@@ -6,3 +6,102 @@
 Add additional Tailwind styles to this file, for example with @layer:
 https://tailwindcss.com/docs/adding-custom-styles#using-css-and-layer
 */
+
+@layer utilities {
+  .unselectable {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+}
+
+.main-frame {
+  padding-top: var(
+    --sl-mobile-toc-height
+  ); /* remove nav height padding since not fixed */
+}
+
+.header {
+  display: flex;
+  position: relative;
+  height: 100%;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: clamp(1rem, 4vw, 2rem);
+}
+
+.site-title {
+  transition: opacity 0.2s;
+}
+.site-title:hover {
+  opacity: 0.66;
+}
+
+/* Hero.astro */
+.hero {
+  padding-block: unset;
+}
+
+.tagline > a {
+  color: var(--sl-color-text-accent);
+}
+
+.tagline > a:hover:not(:where(.not-content *)) {
+  color: var(--sl-color-white);
+}
+
+.stack {
+  text-align: left;
+}
+
+.copy > * {
+  max-width: 67ch;
+}
+
+@media (min-width: 50rem) {
+  .header {
+    height: var(--sl-nav-height);
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .main-frame {
+    padding-top: calc(var(--sl-nav-height) + var(--sl-mobile-toc-height));
+  }
+
+  .hero {
+    grid-template-columns: 9fr 4fr;
+  }
+}
+
+@layer components {
+  .person-grid > .card-grid {
+    --min-column-width: 200px;
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(var(--min-column-width), 1fr)
+    );
+  }
+
+  .person-grid > .card-grid > * {
+    width: var(--min-column-width);
+    min-height: 300px;
+    margin: 0 auto;
+  }
+
+  .person-grid-alumni .icon {
+    --sl-icon-size: 0;
+  }
+
+  @media (min-width: 50rem) {
+    .person-grid > .card-grid {
+      gap: 1.5rem 1rem;
+    }
+
+    .person-grid-alumni > .card-grid {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+}

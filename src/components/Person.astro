@@ -1,35 +1,64 @@
 ---
-import Icon from './Icon.astro'
+import { Icon } from '@astrojs/starlight/components'
 import type { HTMLAttributes } from 'astro/types'
+import { Image } from 'astro:assets'
 
 interface Props extends Omit<HTMLAttributes<'a'>, 'title'> {
+  photo?: string
   title: string
   description?: string
 }
 
-const { title, description, ...attributes } = Astro.props
+const { photo, title, description, ...attributes } = Astro.props
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  '../assets/person/*.jpg'
+)
+const image = images[`../assets/person/${photo}.jpg`]
+let src: ImageMetadata | undefined
+if (image) {
+  src = (await image()).default
+}
+
+const imageAttrs = {
+  loading: 'eager' as const,
+  decoding: 'async' as const,
+  width: 512,
+  height: 512,
+  alt: src?.alt || '',
+}
 ---
 
 <div class="sl-link-card">
   <span class="sl-flex stack">
+    {image && <Image src={src} {...imageAttrs} />}
+    {!image && <div class="blank-img" />}
     <a {...attributes}>
       <span class="title" set:html={title} />
     </a>
     {description && <span class="description" set:html={description} />}
   </span>
-  <Icon name="right-arrow" size="1.333em" class="icon rtl:flip" />
+  <!-- <Icon name="right-arrow" size="1.333em" class="icon rtl:flip" /> -->
 </div>
 
 <style>
   .sl-link-card {
     display: grid;
-    grid-template-columns: 1fr auto;
+    /* grid-template-columns: 1fr auto; */
     gap: 0.5rem;
     border: 1px solid var(--sl-color-gray-5);
     border-radius: 0.5rem;
-    padding: 1rem;
+    padding: 0.5rem;
     box-shadow: var(--sl-shadow-sm);
     position: relative;
+  }
+
+  img,
+  .blank-img {
+    border-radius: 0.5rem;
+    margin-bottom: 0.75rem;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
   }
 
   a {

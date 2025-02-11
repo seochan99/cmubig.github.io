@@ -1,27 +1,37 @@
 ---
-import type { Props } from '../props'
+import type { Props } from '@astrojs/starlight/props'
 
 import EditLink from 'virtual:starlight/components/EditLink'
 import LastUpdated from 'virtual:starlight/components/LastUpdated'
 import Pagination from 'virtual:starlight/components/Pagination'
 import config from 'virtual:starlight/user-config'
 import { Icon } from '@astrojs/starlight/components'
+
+const year = new Date().getFullYear()
 ---
 
 <footer class="sl-flex">
+  <!--
   <div class="meta sl-flex">
     <EditLink {...Astro.props} />
     <LastUpdated {...Astro.props} />
   </div>
+  -->
   <Pagination {...Astro.props} />
 
-  {
-    config.credits && (
-      <a class="kudos sl-flex" href="https://starlight.astro.build">
-        <Icon name={'starlight'} /> {Astro.locals.t('builtWithStarlight.label')}
-      </a>
-    )
-  }
+  <div class="sl-flex">
+    <p class="copyright sl-flex">
+      &copy; {year} Bot Intelligence Group
+    </p>
+    {
+      config.credits && (
+        <a class="kudos sl-flex" href="https://starlight.astro.build">
+          <Icon name={'starlight'} />{' '}
+          {Astro.locals.t('builtWithStarlight.label')}
+        </a>
+      )
+    }
+  </div>
 </footer>
 
 <style>
@@ -41,13 +51,19 @@ import { Icon } from '@astrojs/starlight/components'
     margin-inline-start: auto;
   }
 
+  .copyright,
   .kudos {
     align-items: center;
+    font-size: var(--sl-text-s);
+    color: var(--sl-color-gray-3);
+  }
+  .copyright {
+    margin: auto;
+  }
+  .kudos {
     gap: 0.5em;
     margin: 1.5rem auto;
-    font-size: var(--sl-text-xs);
     text-decoration: none;
-    color: var(--sl-color-gray-3);
   }
   .kudos :global(svg) {
     color: var(--sl-color-orange);

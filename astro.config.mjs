@@ -7,9 +7,15 @@ import tailwind from '@astrojs/tailwind'
 export default defineConfig({
   integrations: [
     starlight({
-      title: 'Docs with Tailwind',
+      title: 'BIG',
+      favicon: './src/assets/cmubig.svg',
+      // logo: {
+      //   src: './src/assets/my-logo.svg',
+      // },
       social: {
-        github: 'https://github.com/withastro/starlight',
+        twitter: 'https://twitter.com/jeanoh',
+        github: 'https://github.com/cmubig',
+        youtube: 'https://www.youtube.com/c/JeanohOrg',
       },
       sidebar: [
         { slug: 'people' },
@@ -19,9 +25,11 @@ export default defineConfig({
           label: 'Research',
           autogenerate: { directory: 'research' },
         },
-        { slug: 'talks' },
+        { slug: 'talks', label: 'Talks' },
         { slug: 'teaching' },
       ],
+      // credits: true,
+      pagination: false,
       components: {
         // Override the default components.
         Header: './src/components/Header.astro',

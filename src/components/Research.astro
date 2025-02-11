@@ -1,21 +1,50 @@
 ---
-import Icon from './Icon.astro'
+import { Icon } from '@astrojs/starlight/components'
 import type { StarlightIcon } from '../components/Icons'
+import type { HTMLAttributes } from 'astro/types'
+import { Image } from 'astro:assets'
 
-interface Props {
+interface Props extends Omit<HTMLAttributes<'a'>, 'title'> {
   icon?: StarlightIcon
+  img?: string
+  vid?: string
+  venue: string
   title: string
 }
 
-const { icon, title } = Astro.props
+const { icon, img, vid, venue, title, ...attributes } = Astro.props
 ---
 
 <article class="card sl-flex">
   <p class="title sl-flex">
-    {icon && <Icon name={icon} class="icon" size="1.333em" />}
-    <span set:html={title} />
+    <!-- {icon && <Icon name={icon} class="icon" size="2.333em" />} -->
+    {
+      venue && (
+        <span class="icon venue" size="2.333em">
+          {venue}
+        </span>
+      )
+    }
+    <a {...attributes}>
+      <span set:html={title} />
+    </a>
   </p>
-  <div class="body"><slot /></div>
+  {img && <img src={img} loading="eager" decoding="async" alt="" />}
+  {
+    vid && (
+      <video
+        class="video"
+        loop
+        muted
+        autoplay
+        preload="none"
+        transition:persist
+      >
+        <source src={vid} type="video/mp4" />
+      </video>
+    )
+  }
+  <!-- <div class="body"><slot /></div> -->
 </article>
 
 <style>
@@ -23,10 +52,13 @@ const { icon, title } = Astro.props
     --sl-card-border: var(--sl-color-purple);
     --sl-card-bg: var(--sl-color-purple-low);
     border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.5rem;
+    box-shadow: var(--sl-shadow-sm);
     background-color: var(--sl-color-black);
     padding: clamp(1rem, calc(0.125rem + 3vw), 2.5rem);
     flex-direction: column;
     gap: clamp(0.5rem, calc(0.125rem + 1vw), 1rem);
+    justify-content: center; /* vertically center */
   }
   .card:nth-child(4n + 1) {
     --sl-card-border: var(--sl-color-orange);
@@ -46,7 +78,7 @@ const { icon, title } = Astro.props
   }
   .title {
     font-weight: 600;
-    font-size: var(--sl-text-h4);
+    font-size: var(--sl-text-h5);
     color: var(--sl-color-white);
     line-height: var(--sl-line-height-headings);
     gap: 1rem;
@@ -65,5 +97,19 @@ const { icon, title } = Astro.props
       calc(0.5rem + 1vw),
       var(--sl-text-body)
     );
+  }
+
+  .venue {
+    text-transform: capitalize;
+    font-size: 0.8rem;
+    text-align: center;
+    white-space: nowrap;
+    padding: 0.5rem !important;
+    color: var(--sl-color-text);
+  }
+
+  a {
+    text-decoration: none;
+    line-height: var(--sl-line-height-headings);
   }
 </style>

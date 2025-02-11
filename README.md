@@ -17,7 +17,22 @@ yarn prettier . --write
 
 # build static content
 yarn build
+
+# check dist/ that was just built
+yarn preview
 ```
+
+# Usage
+
+- Add your `{andrew_id}.jpg` profile image to `src/assets/person/`, and update `src/content/docs/people.mdx`.
+- Add research media to `public/research/` (for static, unprocessed files), and update `src/content/docs/research.mdx`.
+
+Development tips:
+
+- Content in `.md` and `.mdx` files in `src/content/docs/`.
+- Custom components in `src/components/`.
+- Starlight custom [CSS variables](https://github.com/withastro/starlight/tree/main/packages/starlight/style).
+- Global CSS in `src/tailwind.css`.
 
 ## Project Structure
 

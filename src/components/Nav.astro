@@ -1,0 +1,57 @@
+---
+const path = new URL(Astro.request.url).pathname
+
+const navItems = [
+  { href: '/people', label: 'People' },
+  { href: '/publications', label: 'Publications' },
+  { href: '/research', label: 'Research' },
+  { href: '/talks', label: 'Talks' },
+  { href: '/teaching', label: 'Teaching' },
+]
+---
+
+<nav class="sl-flex">
+  {
+    navItems.map((item) => (
+      <a class={path.startsWith(item.href) ? 'active' : ''} href={item.href}>
+        {item.label}
+      </a>
+    ))
+  }
+</nav>
+
+<style>
+  nav {
+    justify-content: space-between;
+    gap: var(--sl-nav-gap);
+    align-items: inherit;
+    flex-flow: row wrap;
+  }
+
+  a:first-of-type {
+    margin-left: 0;
+  }
+
+  a {
+    text-decoration: none;
+    position: relative;
+    white-space: nowrap;
+    margin: 0 0.1rem;
+    border-bottom: 1.5px solid var(--sl-color-bg-nav);
+    transition: opacity 0.2s ease-out;
+    transition:
+      color 0.2s ease-out,
+      border-color 0.2s ease-out;
+    color: var(--sl-color-text-accent);
+    font-weight: bold;
+  }
+
+  a:hover {
+    opacity: 0.66;
+  }
+
+  a:hover,
+  .active {
+    border-color: var(--sl-color-text-accent);
+  }
+</style>

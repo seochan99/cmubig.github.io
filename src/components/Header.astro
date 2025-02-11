@@ -1,6 +1,6 @@
 ---
 import config from 'virtual:starlight/user-config'
-import type { Props } from '../props'
+import type { Props } from '@astrojs/starlight/props'
 
 import LanguageSelect from 'virtual:starlight/components/LanguageSelect'
 import Search from 'virtual:starlight/components/Search'
@@ -8,38 +8,38 @@ import SiteTitle from 'virtual:starlight/components/SiteTitle'
 import SocialIcons from 'virtual:starlight/components/SocialIcons'
 import ThemeSelect from 'virtual:starlight/components/ThemeSelect'
 
+import Nav from './Nav.astro'
+
 /**
  * Render the `Search` component if Pagefind is enabled or the default search component has been overridden.
  */
-const shouldRenderSearch =
+const shouldRenderSearch = false
+/**
   config.pagefind ||
   config.components.Search !== '@astrojs/starlight/components/Search.astro'
+  */
 ---
 
-<div class="header sl-flex">
-  <div class="title-wrapper sl-flex">
-    <SiteTitle {...Astro.props} />
+<div class="unselectable title-wrapper sl-flex">
+  <SiteTitle {...Astro.props} />
+</div>
+<div class="unselectable sl-flex">
+  <Nav {...Astro.props} />
+</div>
+<!--
+<div class="sl-flex print:hidden">
+  {shouldRenderSearch && <Search {...Astro.props} />}
+</div>
+-->
+<div class="sl-hidden md:sl-flex print:hidden right-group">
+  <div class="sl-flex social-icons">
+    <SocialIcons {...Astro.props} />
   </div>
-  <div class="sl-flex print:hidden">
-    {shouldRenderSearch && <Search {...Astro.props} />}
-  </div>
-  <div class="sl-hidden md:sl-flex print:hidden right-group">
-    <div class="sl-flex social-icons">
-      <SocialIcons {...Astro.props} />
-    </div>
-    <ThemeSelect {...Astro.props} />
-    <LanguageSelect {...Astro.props} />
-  </div>
+  <ThemeSelect {...Astro.props} />
+  <!-- <LanguageSelect {...Astro.props} /> -->
 </div>
 
 <style>
-  .header {
-    gap: var(--sl-nav-gap);
-    justify-content: space-between;
-    align-items: center;
-    height: 100%;
-  }
-
   .title-wrapper {
     /* Prevent long titles overflowing and covering the search and menu buttons on narrow viewports. */
     overflow: clip;
