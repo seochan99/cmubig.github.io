@@ -7,6 +7,7 @@
 ```bash
 brew install node@23
 brew install yarn
+brew install git-lfs
 git lfs install
 
 # start local dev server at `localhost:4321`
@@ -20,6 +21,11 @@ yarn build
 
 # check dist/ that was just built
 yarn preview
+
+# check that files are tracked by git-lfs
+git lfs status
+# or
+git lfs ls-files
 ```
 
 # Usage
