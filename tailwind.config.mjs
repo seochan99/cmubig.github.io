@@ -21,7 +21,7 @@ colors.pink = {
 }
 
 // const accent = colors.rose
-const accent = colors.pink
+const accent = colors.sky
 const gray = colors.zinc
 
 /** @type {import('tailwindcss').Config} */
