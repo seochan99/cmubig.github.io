@@ -15,27 +15,16 @@ https://tailwindcss.com/docs/adding-custom-styles#using-css-and-layer
   }
 }
 
-.main-frame {
-  padding-top: var(
-    --sl-mobile-toc-height
-  ); /* remove nav height padding since not fixed */
-}
-
-.header {
-  display: flex;
-  position: relative;
-  height: 100%;
-  flex-flow: row wrap;
-  justify-content: space-between;
-  align-items: center;
-  gap: clamp(1rem, 4vw, 2rem);
-}
-
 .site-title {
   transition: opacity 0.2s;
 }
 .site-title:hover {
   opacity: 0.66;
+}
+
+/* hide title (since only 1-level deep */
+.pagefind-ui__result-nested > .pagefind-ui__result-title {
+  font-size: 0 !important;
 }
 
 /* Hero.astro */
@@ -60,17 +49,6 @@ https://tailwindcss.com/docs/adding-custom-styles#using-css-and-layer
 }
 
 @media (min-width: 50rem) {
-  .header {
-    height: var(--sl-nav-height);
-    position: fixed;
-    display: flex;
-    flex-direction: row;
-  }
-
-  .main-frame {
-    padding-top: calc(var(--sl-nav-height) + var(--sl-mobile-toc-height));
-  }
-
   .hero {
     grid-template-columns: 9fr 4fr;
   }

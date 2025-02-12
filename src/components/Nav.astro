@@ -1,4 +1,10 @@
 ---
+import type { Props } from '@astrojs/starlight/props'
+import { Icon } from '@astrojs/starlight/components'
+
+import config from 'virtual:starlight/user-config'
+import Search from 'virtual:starlight/components/Search'
+
 const path = new URL(Astro.request.url).pathname
 
 const navItems = [
@@ -8,24 +14,71 @@ const navItems = [
   { href: '/talks', label: 'Talks' },
   { href: '/teaching', label: 'Teaching' },
 ]
+
+/**
+ * Render the `Search` component if Pagefind is enabled or the default search component has been overridden.
+ */
+const shouldRenderSearch =
+  config.pagefind ||
+  config.components.Search !== '@astrojs/starlight/components/Search.astro'
+
+// mobile menu design from https://github.com/h-enk/henkverlinde.com/blob/main/src/components/Navbar.astro
 ---
 
 <nav class="sl-flex">
-  {
-    navItems.map((item) => (
-      <a class={path.startsWith(item.href) ? 'active' : ''} href={item.href}>
-        {item.label}
-      </a>
-    ))
-  }
+  <div class="nav-items sl-flex">
+    {
+      navItems.map((item) => (
+        <a class={path.startsWith(item.href) ? 'active' : ''} href={item.href}>
+          {item.label}
+        </a>
+      ))
+    }
+  </div>
+  <button
+    class="mobile-nav-toggle"
+    aria-label={Astro.locals.t('menuButton.accessibleLabel')}
+  >
+    <Icon
+      name="bars"
+      class="menu-closed"
+      size="1.25rem"
+      color="var(--sl-color-text-accent)"
+    />
+    <Icon
+      name="close"
+      class="menu-open"
+      size="1.25rem"
+      color="var(--sl-color-text-accent)"
+    />
+  </button>
+  {shouldRenderSearch && <span>/</span>}
+  <div class="sl-flex print:hidden">
+    {shouldRenderSearch && <Search {...Astro.props} />}
+  </div>
 </nav>
 
+<script is:inline>
+  const navToggle = document.querySelector('.mobile-nav-toggle')
+  navToggle?.addEventListener('click', () => {
+    navToggle.classList.toggle('active')
+    document.querySelector('nav').classList.toggle('active')
+  })
+</script>
+
 <style>
+  /* Desktop styles */
   nav {
     justify-content: space-between;
     gap: var(--sl-nav-gap);
-    align-items: inherit;
-    flex-flow: row wrap;
+    align-items: center;
+  }
+
+  .nav-items {
+    gap: var(--sl-nav-gap);
+    margin: 0;
+    padding: 0;
+    align-items: center;
   }
 
   a:first-of-type {
@@ -38,20 +91,103 @@ const navItems = [
     white-space: nowrap;
     margin: 0 0.1rem;
     border-bottom: 1.5px solid var(--sl-color-bg-nav);
-    transition: opacity 0.2s ease-out;
     transition:
+      opacity 0.2s ease-out,
       color 0.2s ease-out,
       border-color 0.2s ease-out;
     color: var(--sl-color-text-accent);
     font-weight: bold;
   }
 
-  a:hover {
+  nav a:hover,
+  nav a:focus-visible,
+  nav a.active {
     opacity: 0.66;
+    border-color: var(--sl-color-text-accent);
   }
 
-  a:hover,
-  .active {
-    border-color: var(--sl-color-text-accent);
+  /* Mobile menu toggle button */
+  .mobile-nav-toggle {
+    display: none;
+    height: 2.5rem;
+    aspect-ratio: 1 / 1;
+    border: 1.5px solid var(--sl-color-text-accent);
+    border-radius: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 2;
+    background: var(--sl-color-bg-nav);
+  }
+
+  .menu-open {
+    display: none;
+  }
+
+  .mobile-nav-toggle.active .menu-open {
+    display: flex;
+  }
+
+  .mobile-nav-toggle.active .menu-closed {
+    display: none;
+  }
+
+  /* Mobile styles */
+  @media (max-width: 56em) {
+    nav {
+      transition: all 0.2s ease;
+    }
+
+    .mobile-nav-toggle {
+      display: flex;
+    }
+
+    .nav-items {
+      flex-direction: column;
+      gap: 0;
+      position: absolute;
+      width: 100%;
+      top: calc(1rem + 40px);
+      right: 0;
+      padding: 1rem;
+      z-index: 1;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.2s ease;
+      user-select: none;
+      height: calc(100vh - 1rem - 40px);
+      align-items: start;
+    }
+
+    nav.active {
+      background-color: var(--sl-color-bg-nav);
+    }
+
+    /* When the nav is toggled open, show the nav links */
+    nav.active .nav-items {
+      opacity: 1;
+      pointer-events: all;
+      background-color: var(--sl-color-bg-nav);
+    }
+
+    .nav-items a {
+      display: block;
+      padding: 0.75rem 0;
+      padding-left: 1rem;
+      width: 100%;
+      margin: 0;
+      font-size: 1.125em;
+    }
+
+    .nav-items a {
+      border-bottom: 1px solid var(--sl-color-hairline-shade);
+    }
+    .nav-items a:first-child {
+      border-top: 1px solid var(--sl-color-hairline-shade);
+    }
+
+    nav.active a {
+      top: 0;
+    }
   }
 </style>
