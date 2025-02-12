@@ -9,7 +9,7 @@ export default defineConfig({
   integrations: [
     starlight({
       title: 'BIG',
-      favicon: './src/assets/cmubig.svg',
+      favicon: '/cmubig.svg',
       // logo: {
       //   src: './src/assets/my-logo.svg',
       // },

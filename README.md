@@ -29,6 +29,8 @@ yarn preview
 git lfs status
 # or
 git lfs ls-files
+
+# commit and push changes to github pages, an action will trigger to build and deploy the site
 ```
 
 # Usage
