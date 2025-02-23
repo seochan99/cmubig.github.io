@@ -85,6 +85,9 @@ All commands are run from the root of the project, from a terminal:
 ```
 yarn create astro --template starlight/tailwind
 yarn add --dev prettier prettier-plugin-astro remark-parse
+yarn astro add react
+yarn add @headlessui/react
+yarn add react-icons
 git lfs track "src/assets"
 git lfs track "*.jpg" "*.png" "*.gif" "*.mp4" "*.mov" "*.pdf"
 ```
