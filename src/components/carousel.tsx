@@ -74,7 +74,7 @@ const Carousel = ({ images, autoSlideInterval = 5000 }) => {
       onTouchStart={handleTouchStart}
     >
       <div className="overflow-hidden rounded-lg shadow-lg relative">
-        <div className="relative h-[72vh]">
+        <div className="relative h-[20rem] sm:h-[20rem] md:h-[28rem] lg:h-[36rem]">
           {images.map((image, index) => (
             <Transition
               key={index}
@@ -86,7 +86,7 @@ const Carousel = ({ images, autoSlideInterval = 5000 }) => {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
               as="div"
-              className="absolute inset-0 w-full h-full flex items-center justify-center"
+              className="absolute inset-0 w-full h-full flex  justify-center"
             >
               <img
                 src={image.src}
