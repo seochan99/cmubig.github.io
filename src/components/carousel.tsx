@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Transition } from '@headlessui/react'
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 
-const Carousel = ({ images, autoSlideInterval = 3000 }) => {
+const Carousel = ({ images, autoSlideInterval = 5000 }) => {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isZoomed, setIsZoomed] = useState(false)
   const autoSlideTimeout = useRef(null)
@@ -69,12 +69,12 @@ const Carousel = ({ images, autoSlideInterval = 3000 }) => {
 
   return (
     <div
-      className="relative w-full max-w-5xl mx-auto group"
+      className="relative w-full max-w-6xl mx-auto group carousel"
       onMouseDown={handleMouseDown}
       onTouchStart={handleTouchStart}
     >
       <div className="overflow-hidden rounded-lg shadow-lg relative">
-        <div className="relative h-80 sm:h-80 md:h-96">
+        <div className="relative h-[72vh]">
           {images.map((image, index) => (
             <Transition
               key={index}
@@ -86,12 +86,12 @@ const Carousel = ({ images, autoSlideInterval = 3000 }) => {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
               as="div"
-              className="absolute inset-0 w-full h-full"
+              className="absolute inset-0 w-full h-full flex items-center justify-center"
             >
               <img
                 src={image.src}
                 alt={image.alt}
-                className="w-full h-full object-cover cursor-pointer aspect-auto"
+                className="w-full h-full object-cover object-center cursor-pointer aspect-auto"
                 onClick={handleImageClick}
               />
               {image.caption && (

@@ -48,6 +48,11 @@ https://tailwindcss.com/docs/adding-custom-styles#using-css-and-layer
   max-width: 67ch;
 }
 
+.carousel * {
+  /* remove extra margin from .sl-markdown-content */
+  margin-top: 0 !important;
+}
+
 @media (min-width: 50rem) {
   .hero {
     grid-template-columns: 9fr 4fr;
