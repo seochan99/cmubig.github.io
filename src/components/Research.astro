@@ -13,7 +13,7 @@ interface Props extends Omit<HTMLAttributes<'a'>, 'title'> {
   note: string
 }
 
-const { icon, img, vid, venue, title, ...attributes } = Astro.props
+const { icon, img, vid, venue, title, note, ...attributes } = Astro.props
 ---
 
 <article class="card sl-flex">
