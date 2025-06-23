@@ -10,6 +10,7 @@ interface Props extends Omit<HTMLAttributes<'a'>, 'title'> {
   vid?: string
   venue: string
   title: string
+  note: string
 }
 
 const { icon, img, vid, venue, title, ...attributes } = Astro.props
@@ -28,6 +29,7 @@ const { icon, img, vid, venue, title, ...attributes } = Astro.props
     <a {...attributes}>
       <span set:html={title} />
     </a>
+    <span set:html={note} />
   </p>
   {img && <img src={img} loading="eager" decoding="async" alt="" />}
   {
