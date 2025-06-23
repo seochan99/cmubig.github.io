@@ -27,7 +27,8 @@ const { icon, img, vid, venue, title, note, ...attributes } = Astro.props
       )
     }
     <a {...attributes}>
-      <span set:html={title} {note} />
+      <!-- span set:html={title} /> -->
+    <span>{title} <small>{note}</span>
     </a>
   </p>
   {img && <img src={img} loading="eager" decoding="async" alt="" />}
