@@ -1,0 +1,143 @@
+---
+// Award.astro
+export interface Props {
+  title: string;
+  location: string;
+  conference: string;
+  date: string;
+  className?: string;
+}
+
+const { title, location, conference, date, className = "" } = Astro.props;
+---
+
+<div class={`award-item ${className}`}>
+  <div class="award-header">
+    <h3 class="award-title">{title}</h3>
+    <span class="award-location">{location}</span>
+  </div>
+  <div class="award-details">
+    <span class="conference-name">{conference}</span>
+    <span class="award-date">{date}</span>
+  </div>
+</div>
+
+<style>
+  .award-item {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .award-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+  }
+
+  .award-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.25rem;
+    gap: 1rem;
+  }
+
+  .award-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0;
+    color: #111827;
+    flex: 1;
+  }
+
+  .award-location {
+    font-size: 0.9rem;
+    color: #6b7280;
+    white-space: nowrap;
+    font-weight: 500;
+  }
+
+  .award-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+  }
+
+  .conference-name {
+    font-style: italic;
+    color: #4b5563;
+    font-size: 0.9rem;
+    flex: 1;
+    line-height: 1.4;
+  }
+
+  .award-date {
+    font-style: italic;
+    color: #6b7280;
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .award-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.25rem;
+    }
+
+    .award-details {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.25rem;
+    }
+
+    .award-location,
+    .award-date {
+      font-size: 0.85rem;
+    }
+
+    .conference-name {
+      font-size: 0.85rem;
+    }
+  }
+
+  /* Dark mode support */
+  @media (prefers-color-scheme: dark) {
+    .award-item {
+      border-bottom-color: #374151;
+    }
+
+    .award-title {
+      color: #f9fafb;
+    }
+
+    .conference-name {
+      color: #d1d5db;
+    }
+
+    .award-location,
+    .award-date {
+      color: #9ca3af;
+    }
+  }
+
+  /* Print styles */
+  @media print {
+    .award-item {
+      page-break-inside: avoid;
+      margin-bottom: 1rem;
+    }
+
+    .award-title {
+      color: #000;
+    }
+
+    .conference-name,
+    .award-location,
+    .award-date {
+      color: #333;
+    }
+  }
+</style>
